@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Feliz Aniversário!\n\n</title>
+  <title>Feliz Aniversario!</title>
   <style>
     body {
-      background-image: url('monkey.gif');
-      background-size: cover;
-      background-repeat: no-repeat;
-      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
-    
-    #present-button {
+
+    #ready-button {
       padding: 20px;
       font-size: 24px;
       border-radius: 10px;
@@ -19,31 +23,81 @@
       color: white;
       cursor: pointer;
     }
-    
-    #video-container {
+
+    #birthday-container {
+      display: none;
+      height: 100vh;
+      background-image: url('monkey.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    #present-button {
+      padding: 10px 20px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      width: auto; /* Ensures the button fits its content */
+      display: inline-block; /* Prevents it from taking full width */
+    }
+
+    #cake-video {
+      max-width: 100%;
+      margin: auto;
       display: none;
     }
   </style>
 </head>
 
 <body>
-  <h1>Happy Birthday!</h1>
-  <button id="present-button" onclick="openPresent()">Abra seu Presente</button>
+  <button id="ready-button" onclick="startCelebration()">Esta pronto?</button>
   
-  <div id="video-container">
-    <audio autoplay>
+  <div id="birthday-container">
+    <audio id="birthday-audio" loop>
       <source src="page.mp3" type="audio/mp3">
     </audio>
-    <video id="myVideo" width="800" controls>
+    <h1 id="birthday-title">Feliz Aniversario!</h1>
+    <button id="present-button" onclick="playVideo()">Abra seu presente =)</button>
+    <video id="cake-video" controls>
       <source src="cake.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
   </div>
 
   <script>
-    function openPresent() {
-      document.getElementById("video-container").style.display = "block";
+    function startCelebration() {
+      document.body.style.display = "block"; // Reset body layout for birthday container
+      document.body.style.height = "auto";  // Adjust height for content
+      document.getElementById("ready-button").style.display = "none";
+      document.getElementById("birthday-container").style.display = "flex";
+      document.getElementById("birthday-container").style.flexDirection = "column";
+      document.getElementById("birthday-container").style.justifyContent = "center";
+      document.getElementById("birthday-container").style.textAlign = "center";
+      document.getElementById("birthday-audio").play();
+    }
+    
+    function playVideo() {
+      var video = document.getElementById("cake-video");
+      var audio = document.getElementById("birthday-audio");
+      
+      video.style.display = "block";
       document.getElementById("present-button").style.display = "none";
+      
+      video.play();  // Start playing the video
+      
+      // Stop the audio when the video starts
+      audio.pause();
+      audio.currentTime = 0;  // Reset the audio to the beginning
     }
   </script>
 </body>
